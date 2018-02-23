@@ -71,6 +71,21 @@ NIL
 - [ ] have the audio service backends been tested on Mark 1 yet?
 - [ ]
 
+### MessageBus service
+
+The message bus protocol syntax and semantics need to be documented:
+
+- [ ] Create new document(s) to cover bus design, message syntax, etc..
+  - [ ] Do those documents contain sufficient details to allow a clean-room
+        implementation of a drop-in compatible message bus service?
+
+- [ ] For each service, create a new document that covers:
+  - [ ] All possible emitted/handled message types and semantics
+  - [ ] For each message type, describe all message fields
+  - [ ] For each use case, diagram expected message transactions
+  - [ ] Does each document contain sufficient details to allow a
+        clean-room implementation of a drop-in compatible service?
+
 ### Configuration
 
 There is a need for documentation on `mycroft.conf`, but I'm not sure where to start with this, possibly a conversation with Steve to bring me across how it works - precedence, why the file lives in different locations etc.
