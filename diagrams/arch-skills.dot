@@ -1,0 +1,42 @@
+digraph G {
+	compound=true;
+
+	subgraph clusterBus {
+		label="Message Bus Server"
+		MessageBus [label="Message Bus Service"]
+	}
+
+	subgraph clusterSkills {
+		label="Skill Server"
+		Skills [label="Skill Service"]
+		subgraph clusterIntent {
+			label="Intent"
+			style=dashed
+			Padatious
+			Adapt
+		}
+		subgraph clusterSkillModules {
+			label="Skill Modules"
+			style=dotted
+			SkillN
+			Skill2
+			Skill1
+		}
+		Skills -> Adapt [lhead="clusterIntent"]
+		Skills -> Skill1 [lhead="clusterSkillModules"]
+	}
+
+	subgraph clusterCloud {
+		label="Cloud Services"
+		style=dotted
+		ThirdParties [label="3rd Party Services"]
+		MycroftHome [label="home.mycroft.ai"]
+	}
+
+	Network [color="green"]
+
+	Skill2 -> Network [ltail=clusterSkillModules]
+	Network -> MycroftHome [lhead=clusterCloud]
+
+	MessageBus -> Skills
+}

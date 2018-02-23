@@ -1,0 +1,60 @@
+digraph G {
+	compound=true;
+
+	subgraph clusterBus {
+		label="Message Bus Server"
+		MessageBus [label="Message Bus Service"]
+	}
+
+	subgraph clusterAudio {
+		label="Audio Server"
+		Audio [label="Audio Service"]
+		TTS [label="Text-to-Speech (TTS)", style=dashed]
+		Audio -> TTS
+	}
+
+	subgraph clusterVoice {
+		label="Voice Server"
+		Voice [label="Voice Service"]
+		WakeWord [label="Wake Word Detection", style=dashed]
+		STT [label="Speech-to-Text (STT) Service", style=dashed]
+		Voice -> WakeWord
+		Voice -> STT
+	}
+
+	subgraph clusterSkills {
+		label="Skill Server"
+		Skills [label="Skill Service"]
+		Intent [style=dashed]
+		Modules [label="Skill Modules",style=dotted]
+		Skills -> Intent
+		Skills -> Modules
+		Modules -> Network
+	}
+
+	subgraph clusterEnclosure {
+		label="Enclosure Server"
+		Enclosure [label="Enclosure Service"]
+		Devices [label="Device Support", style=dashed]
+		Hardware [color=green]
+		Enclosure -> Devices
+		Devices -> Hardware
+	}
+
+	MessageBus -> Audio
+	MessageBus -> Voice
+	MessageBus -> Skills
+	MessageBus -> Enclosure
+
+	Audio -> Speaker
+	TTS -> Network [style=dotted]
+	Speaker [color="green"]
+
+	Voice -> Microphone
+	STT -> Network
+	Microphone [color="green"]
+
+	Network [color="green"]
+	Cloud [label="Cloud Services",shape=rect]
+	Network -> Cloud
+}

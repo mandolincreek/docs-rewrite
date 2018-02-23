@@ -1,0 +1,47 @@
+digraph G {
+	compound=true;
+
+	subgraph clusterBus {
+		label="Message Bus Server"
+		MessageBus [label="Message Bus Service"]
+	}
+
+	subgraph clusterEnclosure {
+		label="Enclosure Server"
+		Enclosure [label="Enclosure Service"]
+		subgraph clusterDevices {
+			label="Implementations"
+			style=dashed
+			Plasmoid
+			Desktop
+			MarkII
+			MarkI
+			PyCroft
+			Development
+		}
+		Enclosure -> Development [lhead="clusterDevices"]
+	}
+
+	subgraph clusterHardware {
+		label="Enclosure Hardware"
+		style=dotted
+		Touchscreen [color="green"]
+		Display [color="green"]
+		Camera [color="green"]
+		Network [color="green"]
+	}
+
+	subgraph clusterCloud {
+		label="Cloud Services"
+		style=dotted
+		ThirdParties [label="3rd Party Services"]
+		MycroftHome [label="home.mycroft.ai"]
+	}
+
+	MessageBus -> Enclosure
+
+	Development -> Display [ltail="clusterDevices",lhead="clusterHardware"]
+	Desktop -> Network [ltail=clusterDevices]
+
+	Network -> MycroftHome [lhead=clusterCloud]
+}

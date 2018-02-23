@@ -1,0 +1,60 @@
+digraph G {
+	compound=true;
+
+	subgraph clusterBus {
+		label="Message Bus Server"
+		MessageBus [label="Message Bus Service"]
+	}
+
+	subgraph clusterVoice {
+		label="Voice Server"
+		Voice [label="Voice Service"]
+
+		subgraph clusterWakeWord {
+			label="Wake Word"
+			style=dotted
+			WakeWord [label="Wake Word Detection"]
+			subgraph clusterWakeWords {
+				label="Wake Word Providers"
+				style=dashed
+				Snowboy
+				Precise
+				PocketSphinx
+			}
+			WakeWord -> Precise [lhead="clusterWakeWords"]
+		}
+
+		subgraph clusterSTT {
+			label="Speech-to-Text (STT)"
+			style=dotted
+			STT [label="STT Service"]
+			subgraph clusterSTTimp {
+				label="STT Providers"
+				style=dashed
+				WatsonSTT [label="IBM Watson"]
+				GoogleSTT [label="Google"]
+				WitaiSTT [label="wit.ai"]
+			}
+			STT -> WatsonSTT [lhead="clusterSTTimp"]
+		}
+
+		Voice -> WakeWord [lhead="clusterWakeWord"]
+		Voice -> STT [lhead="clusterSTT"]
+	}
+
+	subgraph clusterCloud {
+		label="Cloud Services"
+		style=dotted
+		ThirdParties [label="3rd Party Services"]
+		MycroftHome [label="home.mycroft.ai"]
+	}
+
+	Network [color="green"]
+
+	MessageBus -> Voice
+	Voice -> Microphone
+	Microphone [color="green"]
+
+	GoogleSTT -> Network [ltail=clusterSTTimp]
+	Network -> MycroftHome [lhead=clusterCloud]
+}

@@ -1,0 +1,45 @@
+digraph G {
+	compound=true;
+
+	subgraph clusterBus {
+		label="Message Bus Server"
+		MessageBus [label="Message Bus Service"]
+	}
+
+	subgraph clusterAudio {
+		label="Audio Server"
+		Audio [label="Audio Service"]
+		subgraph clusterTTS {
+			label="Text-to-Speech (TTS)"
+			style=dotted
+			TTS [label="TTS Service"]
+			subgraph clusterTTSimp {
+				label="TTS Providers"
+				style=dashed
+				FATTS
+				GoogleTTS [label="Google"]
+				MaryTTS
+				eSpeak
+				Mimic2
+				Mimic
+			}
+			TTS -> MaryTTS [lhead="clusterTTSimp"]
+		}
+		Audio -> TTS [lhead=clusterTTS]
+	}
+
+	Network [color="green"]
+	Speaker [color="green"]
+
+	subgraph clusterCloud {
+		label="Cloud Services"
+		style=dotted
+		ThirdParties [label="3rd Party Services"]
+	}
+
+	MessageBus -> Audio
+	Audio -> Speaker
+
+	GoogleTTS -> Network [ltail=clusterTTSimp]
+	Network -> ThirdParties [lhead=clusterCloud]
+}
