@@ -52,6 +52,10 @@ The objective of this file is to document the items flagged as @TODO as I go thr
 - [ ] We need a guide or similar for `__init__.py` - that covers items like how to inherit from the `MycroftSkill` class, and the sorts of functions that are used. How are APIs used? What if your **Skill** needs to use another service?
 - [ ] Is the copyright notice that's in `__init__.py` legally required, or can a Community Developer release a **Skill** using a different license?
 
+- [ ] Add examples for extracting data out of the utterances:
+   - [ ] ... using a `voc` file to enumerate possible value
+   - [ ] ... using `{variable}` declarations in the `voc file`
+
 ### Mycroft language support
 
 - [ ] The introductory text is available in multiple languages - are there any key languages that I'm missing?
